@@ -44,6 +44,7 @@ namespace MemoryDumps
             var config = new LoggingConfiguration();
             var consoleTarget = new ConsoleTarget();
             consoleTarget.Layout = "${logger} ${message}";
+            config.AddTarget("console", consoleTarget);
 
             var slowTarget = new SlowTarget(consoleTarget);
             var asyncTarget = new AsyncTargetWrapper(slowTarget);
@@ -51,6 +52,7 @@ namespace MemoryDumps
             config.AddTarget("slow", asyncTarget);
 
             config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, asyncTarget));
+            config.LoggingRules.Add(new LoggingRule("*", LogLevel.Error, consoleTarget));
             LogManager.Configuration = config;
             Logger = LogManager.GetCurrentClassLogger();
         }
@@ -65,7 +67,7 @@ namespace MemoryDumps
         {
             Logger.ErrorException("A exception was thrown from a Task and was not observed", e.Exception);
 
-            // This will prevent the exception from killing the process.
+            // This will prevent the exception from killing the process on .net 4.0.
             e.SetObserved();
         }
 
