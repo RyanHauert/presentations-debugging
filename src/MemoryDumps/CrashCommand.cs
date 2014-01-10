@@ -9,7 +9,7 @@ namespace MemoryDumps
     {
         public override bool Execute(CrashInput input)
         {
-            ThreadPool.QueueUserWorkItem(_ => { throw new Exception("I made the app crash"); });
+            ThreadPool.QueueUserWorkItem(_ => { throw new InvalidOperationException("I made the app crash"); });
             return true;
         }
     }
