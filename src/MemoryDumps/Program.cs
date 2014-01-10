@@ -47,6 +47,7 @@ namespace MemoryDumps
 
             var slowTarget = new SlowTarget(consoleTarget);
             var asyncTarget = new AsyncTargetWrapper(slowTarget);
+            asyncTarget.OverflowAction = AsyncTargetWrapperOverflowAction.Grow;
             config.AddTarget("slow", asyncTarget);
 
             config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, asyncTarget));

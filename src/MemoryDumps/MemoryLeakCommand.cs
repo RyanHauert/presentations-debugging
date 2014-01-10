@@ -13,9 +13,9 @@ namespace MemoryDumps
         {
             Parallel.For(0, 8, x =>
             {
-                for (int i = 0; i < 100000; i++)
+                for (int i = 0; i < 1000000; i++)
                 {
-                    _logger.Info("A log statement");
+                    _logger.Info("A log statement {0}", i);
                 }
             });
 
